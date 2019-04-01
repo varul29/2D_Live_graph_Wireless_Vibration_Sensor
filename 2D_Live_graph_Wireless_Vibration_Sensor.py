@@ -13,36 +13,39 @@ ax1 = fig.add_subplot(1, 1, 1)
 xs = []
 ys = []
 y2 = []
+y3 = []
+
 
 # Animate Function
-def animate(i, xs, ys):
+def animate(i, xs, ys,y2,y3):
     # Read max value
     rmsX,rmsY,rmsZ = vib_sense();
     print(rmsX);
     print(rmsY);
+    
     #rounding off the figure upto 2 decimal format
     rms = round(rmsX, 2)
     rms1 = round(rmsY, 2)
-    #rms2 = round(rmsZ, 2)
+    rms2 = round(rmsZ, 2)
     
     # Add x and y to lists
     xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
     ys.append(rms)
     y2.append(rms1)
-    #y3.append(rms2)
+    y3.append(rms2)
 
     # Limit x and y lists to 50 items
     xs = xs[-50:]
     ys = ys[-50:]
     y2 = y2[-50:]
-    #y3 = y3[-50:]
+    y3 = y3[-50:]
     
 
     # Draw x and y lists
     ax1.clear()
     ax1.plot(xs, ys, label='RMS X', marker='o')
     ax1.plot(xs, y2, label='RMS Y',marker='o')
-    #ax1.plot(xs, y3, label='RMS Z',marker='o')
+    ax1.plot(xs, y3, label='RMS Z',marker='o')
     
     # Format plot
     plt.xticks(rotation=60, ha='right')
@@ -79,6 +82,6 @@ def vib_sense():
 
 
 
-ani = animation.FuncAnimation(fig, animate, fargs=(xs, ys, y2), interval=500)
+ani = animation.FuncAnimation(fig, animate, fargs=(xs, ys, y2, y3), interval=500)
 plt.show()
 
